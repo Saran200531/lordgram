@@ -58,14 +58,39 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const signup = async (email: string, password: string, additionalData: any = {}) => {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        // Create user document in Firestore
-        await setDoc(doc(db, 'users', userCredential.user.uid), {
+        const uid = userCredential.user.uid;
+
+        // Create user document with full social profile fields
+        const userDoc = {
+            // Core fields
             email: email,
-            uid: userCredential.user.uid,
+            uid: uid,
+            displayName: additionalData.displayName || additionalData.name || '',
+            username: additionalData.username || '',
+
+            // Profile fields
+            avatar: `https://picsum.photos/seed/${uid}/200`,
+            backgroundImage: `https://picsum.photos/seed/${uid}-bg/800/400`,
+            bio: '',
+
+            // Social fields
+            followers: [] as string[],
+            following: [] as string[],
+            followersCount: 0,
+            followingCount: 0,
+
+            // Status fields
+            isVerified: false,
+
+            // Timestamps
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
+
+            // Any additional data passed from signup form
             ...additionalData
-        });
+        };
+
+        await setDoc(doc(db, 'users', uid), userDoc);
     };
 
     const login = async (email: string, password: string) => {
