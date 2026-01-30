@@ -1,0 +1,9 @@
+{
+  "name": "LordGram",
+  "description": "A vibrant, modern social platform for sharing moments, reels, and connecting with friends through authentic interactions.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
