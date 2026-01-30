@@ -1,25 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Modern Dark Theme Palette */
   --bg-primary: hsl(220, 20%, 10%);
   --bg-secondary: hsl(220, 20%, 14%);
   --bg-surface: hsl(220, 20%, 18%);
-  
+
   --text-primary: hsl(220, 10%, 96%);
   --text-secondary: hsl(220, 10%, 70%);
   --text-muted: hsl(220, 10%, 50%);
-  
+
   --accent-primary: hsl(250, 70%, 60%);
   --accent-hover: hsl(250, 70%, 50%);
-  
+
   --border-color: hsl(220, 20%, 20%);
-  
+
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 1rem;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;

@@ -1,8 +1,8 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-// Always use the process.env.API_KEY directly in the constructor as per guidelines.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Always use the env var directly.
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
 export async function suggestMeetupIdeas(postCaption: string, contentType: string) {
   try {
