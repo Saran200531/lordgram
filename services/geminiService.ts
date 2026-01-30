@@ -1,11 +1,20 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
 
-// Always use the env var directly.
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+// Helper to get AI instance safely
+const getAi = () => {
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey || apiKey === "PLACEHOLDER_API_KEY") {
+    console.warn("VITE_GEMINI_API_KEY is not set or valid. AI features will fallback to defaults.");
+    return null;
+  }
+  return new GoogleGenAI({ apiKey });
+};
 
 export async function suggestMeetupIdeas(postCaption: string, contentType: string) {
   try {
+    const ai = getAi();
+    if (!ai) throw new Error("AI not configured");
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Based on this post caption: "${postCaption}" (which is a ${contentType}), suggest 3 fun, creative, and specific real-world meetup ideas for friends. Keep them short and catchy.`,
@@ -41,6 +50,8 @@ export async function suggestMeetupIdeas(postCaption: string, contentType: strin
 
 export async function generateCaption(prompt: string) {
   try {
+    const ai = getAi();
+    if (!ai) throw new Error("AI not configured");
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Generate a short, authentic, and engaging social media caption for a photo with this description: "${prompt}". No hashtags, just friendly vibes.`,
@@ -55,6 +66,8 @@ export async function generateCaption(prompt: string) {
 
 export async function generateMagicReply(lastMessage: string, context: string) {
   try {
+    const ai = getAi();
+    if (!ai) throw new Error("AI not configured");
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: `Context: You are chatting with a friend. They just said: "${lastMessage}". Conversation history/context: "${context}". Suggest 3 short, friendly, and natural-sounding replies.`,
