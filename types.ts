@@ -31,7 +31,8 @@ export interface Post {
   type: 'image' | 'video' | 'reel';
   contentUrl: string;
   caption: string;
-  likes: number;
+  likes: string[];
+  likesCount: number;
   comments: Comment[];
   visibility: Visibility;
   createdAt: string;

@@ -48,7 +48,8 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onSu
       type: 'image',
       contentUrl: imagePreview,
       caption,
-      likes: 0,
+      likes: [],
+      likesCount: 0,
       comments: [],
       visibility,
       createdAt: new Date().toISOString(),
@@ -84,7 +85,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onSu
             ) : (
               <div className="relative rounded-2xl overflow-hidden group">
                 <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover" />
-                <button 
+                <button
                   onClick={() => setImagePreview(null)}
                   className="absolute top-2 right-2 bg-white/80 p-1.5 rounded-full hover:bg-white"
                 >
@@ -99,7 +100,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onSu
           <div className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-semibold text-slate-700">Caption</label>
-              <textarea 
+              <textarea
                 value={caption}
                 onChange={(e) => setCaption(e.target.value)}
                 placeholder="Write something authentic..."
@@ -116,14 +117,14 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onSu
               </div>
               <p className="text-xs text-emerald-600/80">Describe your photo and I'll write a caption for you.</p>
               <div className="flex gap-2">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="E.g. Coffee in a rainy garden"
                   className="flex-1 bg-white border-none text-xs p-2 rounded-lg outline-none ring-1 ring-emerald-200"
                 />
-                <button 
+                <button
                   type="button"
                   onClick={handleMagicCaption}
                   disabled={isGenerating || !prompt}
@@ -138,14 +139,14 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onSu
           <div className="flex items-center justify-between">
             <span className="text-sm font-semibold text-slate-700">Visibility</span>
             <div className="flex bg-slate-100 p-1 rounded-xl">
-              <button 
+              <button
                 type="button"
                 onClick={() => setVisibility('friends')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${visibility === 'friends' ? 'bg-white shadow-sm text-emerald-600' : 'text-slate-500'}`}
               >
                 Friends
               </button>
-              <button 
+              <button
                 type="button"
                 onClick={() => setVisibility('public')}
                 className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${visibility === 'public' ? 'bg-white shadow-sm text-emerald-600' : 'text-slate-500'}`}
@@ -155,7 +156,7 @@ const CreatePostModal: React.FC<CreatePostModalProps> = ({ isOpen, onClose, onSu
             </div>
           </div>
 
-          <button 
+          <button
             type="submit"
             disabled={!imagePreview}
             className="w-full bg-emerald-500 text-white py-4 rounded-2xl font-bold shadow-lg shadow-emerald-200 hover:bg-emerald-600 transition-colors disabled:opacity-50"

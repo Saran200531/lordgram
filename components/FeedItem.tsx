@@ -13,7 +13,7 @@ interface FeedItemProps {
 const FeedItem: React.FC<FeedItemProps> = ({ post, onPlanMeetup }) => {
   const { user } = useAuth();
   const [liked, setLiked] = useState(post.likes?.includes(user?.uid || '') || false);
-  const [likeCount, setLikeCount] = useState(typeof post.likes === 'number' ? post.likes : (post.likes?.length || 0));
+  const [likeCount, setLikeCount] = useState(post.likesCount ?? post.likes?.length ?? 0);
   const [bookmarked, setBookmarked] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [reaction, setReaction] = useState<string | null>(null);
